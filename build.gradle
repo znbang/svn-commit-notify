@@ -1,0 +1,44 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "1.5.8.RELEASE"
+}
+
+version = "1.0.0"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.tmatesoft.svnkit:svnkit:1.8.14")
+
+    // spring
+    compile("org.springframework.boot:spring-boot-starter-mail")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    runtime("org.springframework.boot:spring-boot-devtools")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+task yarn(type: Exec) {
+    workingDir = "frontend"
+    commandLine "yarn.cmd"
+}
+
+task generateFrontend(type: Exec, dependsOn: yarn) {
+    workingDir = "frontend"
+    commandLine "yarn.cmd", "run", "build"
+}
+
+task cleanFrontend(type: Delete) {
+    delete "frontend/.nuxt", "frontend/dist"
+}
+
+clean.dependsOn cleanFrontend
+jar.dependsOn generateFrontend
+jar {
+    into("static", {
+        from "frontend/dist"
+    })
+}
