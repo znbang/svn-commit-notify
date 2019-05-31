@@ -1,13 +1,13 @@
 <template>
 <div>
-  <el-input placeholder="請輸入電子郵件" v-model="email" class="email-input">
+  <el-input v-model="email" placeholder="請輸入電子郵件" class="email-input">
     <template slot="prepend">電子郵件</template>
     <el-button slot="append" @click="create">新增</el-button>
   </el-input>
   <el-table :data="list" :border="true">
     <el-table-column label="Email" prop="email"></el-table-column>
     <el-table-column label="操作" width="120">
-      <template scope="scope">
+      <template slot-scope="scope">
         <el-button type="danger" size="small" @click="destroy(scope.row)">刪除</el-button>
       </template>
     </el-table-column>

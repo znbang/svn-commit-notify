@@ -42,7 +42,7 @@ function handleError (ctx, error) {
 export default (ctx, inject) => {
   inject('axios', axios)
   axios.defaults.baseURL = '/api'
-  axios.defaults.headers.common['Accept'] = 'application/json'
+  axios.defaults.headers.Accept = 'application/json'
   axios.interceptors.request.use(config => hideError(ctx, config))
   axios.interceptors.response.use(undefined, error => handleError(ctx, error))
 }

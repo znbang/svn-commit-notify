@@ -1,6 +1,6 @@
 <template>
 <div>
-  <el-input placeholder="請輸入URL" v-model="url" class="url-input">
+  <el-input v-model="url" placeholder="請輸入URL" class="url-input">
     <template slot="prepend">URL</template>
     <el-button slot="append" @click="create">新增</el-button>
   </el-input>
@@ -8,7 +8,7 @@
     <el-table-column label="URL" prop="url"></el-table-column>
     <el-table-column label="Revision" prop="revision" width="120"></el-table-column>
     <el-table-column label="操作" width="120">
-      <template scope="scope">
+      <template slot-scope="scope">
         <el-button type="danger" size="small" @click="destroy(scope.row)">刪除</el-button>
       </template>
     </el-table-column>
