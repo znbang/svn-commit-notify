@@ -1,13 +1,13 @@
 plugins {
     id "java"
-    id "org.springframework.boot" version "2.1.5.RELEASE"
-    id "io.spring.dependency-management" version "1.0.7.RELEASE"
-    id "com.github.ben-manes.versions" version "0.21.0"
+    id "org.springframework.boot" version "2.2.0.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "com.github.ben-manes.versions" version "0.27.0"
 }
 
 version = "1.0.1"
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -21,7 +21,7 @@ configurations {
 }
 
 dependencies {
-    implementation("org.tmatesoft.svnkit:svnkit:1.9.3")
+    implementation("org.tmatesoft.svnkit:svnkit:1.10.1")
 
     // spring
     implementation("org.springframework.boot:spring-boot-starter-mail")

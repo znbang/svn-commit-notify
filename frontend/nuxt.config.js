@@ -1,8 +1,5 @@
-import pkg from './package'
-
 export default {
   mode: 'spa',
-
   /*
    ** Headers of the page
    */
@@ -15,24 +12,40 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-
   /*
    ** Customize the progress-bar color
    */
   loading: { color: '#fff' },
+  /*
+   ** Global CSS
+   */
+  css: [
+    'element-ui/lib/theme-chalk/index.css'
+  ],
+  /*
+   ** Plugins to load before mounting the App
+   */
+  plugins: [
+    '@plugins/axios',
+    '@plugins/element-ui'
+  ],
+  /*
+   ** Nuxt.js dev-modules
+   */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module'
+  ],
+  /*
+   ** Nuxt.js modules
+   */
+  modules: [
+    '@nuxtjs/axios'
+  ],
 
   router: {
     mode: 'hash'
   },
-
-  plugins: [
-    '@plugins/axios.js',
-    '@plugins/element-ui.js'
-  ],
-
-  modules: [
-    '@nuxtjs/axios'
-  ],
 
   axios: {
     proxy: true
@@ -50,20 +63,11 @@ export default {
     transpile: [/^element-ui/],
 
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
       if (ctx.isDev) {
         config.devtool = 'eval-source-map'
-      }
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
       }
     }
   }
