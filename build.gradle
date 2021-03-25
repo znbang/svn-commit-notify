@@ -1,0 +1,48 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "2.2.0.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "com.github.ben-manes.versions" version "0.27.0"
+}
+
+version = "1.0.1"
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    implementation("org.tmatesoft.svnkit:svnkit:1.10.1")
+
+    // spring
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+task buildFrontend(type: Exec) {
+    workingDir = "frontend"
+    commandLine "npm.cmd", "run", "build"
+}
+
+task cleanFrontend(type: Delete) {
+    delete "frontend/.nuxt", "frontend/dist"
+}
+
+clean.dependsOn cleanFrontend
+bootJar.dependsOn buildFrontend
+bootJar {
+    into("BOOT-INF/classes/static", {
+        from "frontend/dist"
+    })
+}
